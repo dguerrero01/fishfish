@@ -11,6 +11,7 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var fish = 1
     var fishingPole = SKSpriteNode()
+    var water = SKSpriteNode()
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var playLabel = SKLabelNode()
@@ -20,6 +21,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         resetGame()
         createTitleScreen()
+        createWater()
+        makeFishingPole()
+    }
+    
+    func createWater() {
+        water = SKSpriteNode(color: .blue, size: CGSize(width: frame.width, height: frame.height))
+        water.position = CGPoint(x: frame.midX, y: frame.midY)
+        water.name = "background"
+        water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
+        water.physicsBody?.isDynamic = false
+        addChild(water)
+    }
+    
+    func createSky() {
+        
     }
     
     func makeFishingPole() {
