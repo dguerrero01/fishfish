@@ -60,6 +60,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(playLabel)
     }
     
+    func removeTitleScreen() {
+        playLabel.run(SKAction.fadeOut(withDuration: 3))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            if let child = self.childNode(withName: "playLabel") as? SKSpriteNode {
+                child.removeFromParent()
+            }
+        }
+    }
+    
     func resetGame() {
         makeFishingPole()
     }
