@@ -23,12 +23,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func makeFishingPole() {
-        fishingPole = SKSpriteNode(color: .white, size: CGSize(width: 10, height: frame.height))
-        fishingPole.position = CGPoint(x: frame.midX, y: frame.minY + 1750)
+        fishingPole = SKSpriteNode(color: .orange, size: CGSize(width: 10, height: frame.height/4))
+        fishingPole.position = CGPoint(x: frame.minX, y: frame.minY + 1150)
         fishingPole.name = "fishing pole"
         fishingPole.physicsBody = SKPhysicsBody(rectangleOf: fishingPole.size)
         fishingPole.physicsBody?.isDynamic = false
         addChild(fishingPole)
+        let moveRight = SKAction.moveBy(x: frame.width, y: 0, duration: 2)
+        let moveLeft = SKAction.moveBy(x: -frame.width, y: 0, duration: 2)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveRight, moveLeft]))
+        fishingPole.run(moveBackAndForth)
     }
     
     func createTitleScreen() {
@@ -47,14 +51,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            fishingPole.position.x = location.x
+            fishingPole.position.y = location.y
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            fishingPole.position.x = location.x
+            fishingPole.position.y = location.y
         }
     }
 }
