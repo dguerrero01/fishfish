@@ -7,6 +7,7 @@
 
 import SpriteKit
 import GameplayKit
+import SwiftUI
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var fish = 1
@@ -15,6 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var playLabel = SKLabelNode()
+    var playingGame = false
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -55,7 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playLabel.fontSize = 100
         playLabel.text = "fishfish"
         playLabel.fontName = "Al Bayan Bold"
-        playLabel.position = CGPoint(x: frame.midX, y: frame.midY + 450)
+        playLabel.position = CGPoint(x: frame.midX, y: frame.midY + 0)
         playLabel.name = "title"
         addChild(playLabel)
     }
@@ -76,14 +78,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            fishingPole.position.y = location.y
+            if playingGame {
+                fishingPole.position.y = location.y
+            }
+            else {
+                for node in nodes(at: location) {
+                    if node.name == "title" {
+                        playingGame = true
+                        node.alpha = 0
+                    }
+                }
+            }
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            if playingGame {
             fishingPole.position.y = location.y
+            }
         }
     }
 }
