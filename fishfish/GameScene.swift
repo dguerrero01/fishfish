@@ -48,8 +48,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func makeFishingPole() {
-        fishingPole = SKSpriteNode(color: .orange, size: CGSize(width: 10, height: frame.height/4))
-        fishingPole.position = CGPoint(x: frame.minX, y: frame.minY + 1150)
+        fishingPole = SKSpriteNode(color: .orange, size: CGSize(width: 10, height: frame.height))
+        fishingPole.position = CGPoint(x: frame.minX, y: frame.minY + 1750)
         fishingPole.name = "fishing pole"
         fishingPole.physicsBody = SKPhysicsBody(rectangleOf: fishingPole.size)
         fishingPole.physicsBody?.isDynamic = false
@@ -86,7 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             let location = touch.location(in: self)
             if playingGame {
-                fishingPole.position.y = location.y
+                fishingPole.position.y = location.y - 450
             }
             else {
                 for node in nodes(at: location) {
@@ -103,7 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             let location = touch.location(in: self)
             if playingGame {
-            fishingPole.position.y = location.y
+                fishingPole.position.y = location.y - 450
             }
         }
     }
