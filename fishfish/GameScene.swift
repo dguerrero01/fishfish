@@ -25,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         resetGame()
         createTitleScreen()
         makeFishingPole()
+        makeFish()
     }
     
     func createBackground() {
@@ -65,6 +66,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    //    func moveSideToSide() {
+    //        let moveLeftRight = SKAction.moveBy(x: 1, y: 1, duration: 3)
+    //        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveLeftRight]))
+    //    }
+        
+        func makeFish() {
+            let fish = SKSpriteNode(imageNamed: "Green Fish")
+            fish.position = CGPoint(x: -200, y: -200)
+            let movePositive = SKAction.moveBy(x: 100, y: 0, duration: 3)
+            let moveNegative = SKAction.moveBy(x: -100, y: 0, duration: 3)
+            let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, moveNegative]))
+            fish.run(moveBackAndForth)
+            self.addChild(fish)
+        }
+        
     
     func resetGame() {
         makeFishingPole()
