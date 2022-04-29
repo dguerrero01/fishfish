@@ -8,12 +8,11 @@
 import SpriteKit
 import GameplayKit
 import SwiftUI
+import UIKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var fish = 1
     var fishingPole = SKSpriteNode()
-    var water = SKSpriteNode()
-    var sky = SKSpriteNode()
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var playLabel = SKLabelNode()
@@ -22,29 +21,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        createBackground()
         resetGame()
         createTitleScreen()
-        createWater()
-        createSky()
         makeFishingPole()
     }
     
-    func createWater() {
-        water = SKSpriteNode(color: .blue, size: CGSize(width: frame.width, height: frame.height))
-        water.position = CGPoint(x: frame.midX, y: frame.midY)
-        water.name = "water"
-        water.physicsBody = SKPhysicsBody(rectangleOf: water.size)
-        water.physicsBody?.isDynamic = false
-        addChild(water)
-    }
-    
-    func createSky() {
-        sky = SKSpriteNode(color: .lightGray, size: CGSize(width: frame.width, height: frame.height))
-        sky.position = CGPoint(x: frame.midX, y: frame.midY + 1000)
-        sky.name = "sky"
-        sky.physicsBody = SKPhysicsBody(rectangleOf: sky.size)
-        sky.physicsBody?.isDynamic = false
-        addChild(sky)
+    func createBackground() {
+        let background = SKSpriteNode(imageNamed: "fishfish3")
+        background.size = frame.size
+        background.zPosition = -1
+        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        addChild(background)
     }
     
     func makeFishingPole() {
