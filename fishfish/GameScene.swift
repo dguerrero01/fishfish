@@ -50,20 +50,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createTitleScreen() {
-        playLabel.fontSize = 100
-        playLabel.text = "fishfish"
-        playLabel.fontName = "Al Bayan Bold"
-        playLabel.position = CGPoint(x: frame.midX, y: frame.midY + 0)
-        playLabel.name = "title"
-        addChild(playLabel)
+        let title = SKSpriteNode(imageNamed: "fishfish.")
+        title.position = CGPoint(x: frame.midX, y: frame.midY + 0)
+        title.zPosition = 1
+        title.name = "title"
+        addChild(title)
+//        playLabel.fontSize = 100
+//        playLabel.text = "fishfish"
+//        playLabel.fontName = "Al Bayan Bold"
+//        playLabel.position = CGPoint(x: frame.midX, y: frame.midY + 0)
+//        playLabel.name = "title"
+//        addChild(playLabel)
     }
     
     func removeTitleScreen() {
-        playLabel.run(SKAction.fadeOut(withDuration: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            if let child = self.childNode(withName: "playLabel") as? SKSpriteNode {
-                child.removeFromParent()
-            }
+//        title.run(SKAction.fadeOut(withDuration: 3))
+//               DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                   if let child = self.childNode(withName: "title") as? SKSpriteNode {
+                       child.removeFromParent()
+//        playLabel.run(SKAction.fadeOut(withDuration: 3))
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            if let child = self.childNode(withName: "playLabel") as? SKSpriteNode {
+//                child.removeFromParent()
+//            }
         }
     }
     
