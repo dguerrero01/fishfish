@@ -24,9 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createBackground()
         resetGame()
         createTitleScreen()
-        makeFishingPole()
         makeFish()
-        moveFishingPole()
     }
     
     func createBackground() {
