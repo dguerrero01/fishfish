@@ -26,6 +26,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createTitleScreen()
         makeFishingPole()
         makeFish()
+        moveFishingPole()
     }
     
     func createBackground() {
@@ -43,6 +44,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fishingPole.physicsBody = SKPhysicsBody(rectangleOf: fishingPole.size)
         fishingPole.physicsBody?.isDynamic = false
         addChild(fishingPole)
+    }
+    
+    func moveFishingPole() {
         let moveRight = SKAction.moveBy(x: frame.width, y: 0, duration: 2)
         let moveLeft = SKAction.moveBy(x: -frame.width, y: 0, duration: 2)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveRight, moveLeft]))
@@ -85,6 +89,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func resetGame() {
         makeFishingPole()
+        moveFishingPole()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,6 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = touch.location(in: self)
             if playingGame {
                 fishingPole.position.y = location.y - 450
+                fishingPole.removeAllActions()
             }
             else {
                 for node in nodes(at: location) {
