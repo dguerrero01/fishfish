@@ -51,48 +51,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fishingPole.run(moveBackAndForth)
     }
     
+    func moveFishingPoleUp() {
+        let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 2)
+        fishingPole.run(moveUp)
+    }
+    
     func createTitleScreen() {
         let title = SKSpriteNode(imageNamed: "fishfish.")
         title.position = CGPoint(x: frame.midX, y: frame.midY + 0)
         title.zPosition = 1
         title.name = "title"
         addChild(title)
-//        playLabel.fontSize = 100
-//        playLabel.text = "fishfish"
-//        playLabel.fontName = "Al Bayan Bold"
-//        playLabel.position = CGPoint(x: frame.midX, y: frame.midY + 0)
-//        playLabel.name = "title"
-//        addChild(playLabel)
     }
     
     func removeTitleScreen() {
-//        title.run(SKAction.fadeOut(withDuration: 3))
-//               DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                   if let child = self.childNode(withName: "title") as? SKSpriteNode {
-                       child.removeFromParent()
-//        playLabel.run(SKAction.fadeOut(withDuration: 3))
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            if let child = self.childNode(withName: "playLabel") as? SKSpriteNode {
-//                child.removeFromParent()
-//            }
+        if let child = self.childNode(withName: "title") as? SKSpriteNode {
+            child.removeFromParent()
         }
     }
     
-    //    func moveSideToSide() {
-    //        let moveLeftRight = SKAction.moveBy(x: 1, y: 1, duration: 3)
-    //        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveLeftRight]))
-    //    }
-        
-        func makeFish() {
-            let fish = SKSpriteNode(imageNamed: "Green Fish")
-            fish.position = CGPoint(x: -200, y: -200)
-            let movePositive = SKAction.moveBy(x: 100, y: 0, duration: 3)
-            let moveNegative = SKAction.moveBy(x: -100, y: 0, duration: 3)
-            let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, moveNegative]))
-            fish.run(moveBackAndForth)
-            self.addChild(fish)
-        }
-        
+    func makeFish() {
+        let fish = SKSpriteNode(imageNamed: "Green Fish")
+        fish.position = CGPoint(x: -200, y: -200)
+        let movePositive = SKAction.moveBy(x: 100, y: 0, duration: 3)
+        let moveNegative = SKAction.moveBy(x: -100, y: 0, duration: 3)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, moveNegative]))
+        fish.run(moveBackAndForth)
+        self.addChild(fish)
+    }
+    
     
     func resetGame() {
         makeFishingPole()
@@ -105,6 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if playingGame {
                 fishingPole.position.y = location.y - 450
                 fishingPole.removeAllActions()
+                moveFishingPoleUp()
             }
             else {
                 for node in nodes(at: location) {
