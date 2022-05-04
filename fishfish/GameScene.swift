@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createBackground()
         resetGame()
         createTitleScreen()
-        makeFish()
+        makeGreenFish()
     }
     
     func createBackground() {
@@ -70,14 +70,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func makeFish() {
-        let fish = SKSpriteNode(imageNamed: "Green Fish")
-        fish.position = CGPoint(x: -200, y: -200)
-        let movePositive = SKAction.moveBy(x: 100, y: 0, duration: 3)
-        let moveNegative = SKAction.moveBy(x: -100, y: 0, duration: 3)
-        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, moveNegative]))
-        fish.run(moveBackAndForth)
-        self.addChild(fish)
+    func makeGreenFish() {
+        let Gfish = SKSpriteNode(imageNamed: "Green Fish")
+        Gfish.position = CGPoint(x: 0, y: -200)
+        let movePositive = SKAction.moveBy(x: 225, y: 0, duration: 3)
+        let moveNegative = SKAction.moveBy(x: -225, y: 0, duration: 3)
+        //        let hide = SKAction.(hide)
+        let Gfishh = SKTexture(imageNamed: "Green Fish.")
+        let gfishh = SKTexture(imageNamed: "Green Fish")
+        let switchFish = SKAction.setTexture(Gfishh)
+        let switchFishBack = SKAction.setTexture(gfishh)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, switchFish, moveNegative, moveNegative, switchFishBack, movePositive]))
+        Gfish.run(moveBackAndForth)
+        self.addChild(Gfish)
     }
     
     
