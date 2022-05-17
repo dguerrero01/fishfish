@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createBackground()
         resetGame()
         createTitleScreen()
-        makeGreenFish()
+        makeFishes()
         createResetButton()
         resetFish()
     }
@@ -82,11 +82,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(button)
     }
     
+    func makeFishes() {
+        makeGreenFish()
+        makeBlueFish()
+        makeRedFish()
+        makeOrangeFish()
+        makeGreFish()
+    }
+    
     func makeGreenFish() {
         let Gfish = SKSpriteNode(imageNamed: "Green Fish")
-        Gfish.position = CGPoint(x: 0, y: -200)
-        let movePositive = SKAction.moveBy(x: 225, y: 0, duration: 3)
-        let moveNegative = SKAction.moveBy(x: -225, y: 0, duration: 3)
+        Gfish.position = CGPoint(x: 0, y: 300)
+        let movePositive = SKAction.moveBy(x: 225, y: 0, duration: 5.5)
+        let moveNegative = SKAction.moveBy(x: -225, y: 0, duration: 5.5)
         //        let hide = SKAction.(hide)
         let Gfishh = SKTexture(imageNamed: "Green Fish.")
         let gfishh = SKTexture(imageNamed: "Green Fish")
@@ -97,7 +105,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Gfish)
     }
     
+    func makeBlueFish() {
+        let Bfish = SKSpriteNode(imageNamed: "blueFish")
+        Bfish.position = CGPoint(x: 0, y: -100)
+        let movePositive = SKAction.moveBy(x: 250, y: 0, duration: 1.5)
+        let moveNegative = SKAction.moveBy(x: -250, y: 0, duration: 1.5)
+        let Bfishh = SKTexture(imageNamed: "blueFish.")
+        let bfishh = SKTexture(imageNamed: "blueFish")
+        let switchFish = SKAction.setTexture(Bfishh)
+        let switchFishBack = SKAction.setTexture(bfishh)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
+        Bfish.run(moveBackAndForth)
+        self.addChild(Bfish)
+    }
     
+    func makeRedFish() {
+        let Rfish = SKSpriteNode(imageNamed: "redFish")
+        Rfish.position = CGPoint(x: 0, y: -425)
+        let movePositive = SKAction.moveBy(x: 250, y: 0, duration: 3)
+        let moveNegative = SKAction.moveBy(x: -250, y: 0, duration: 3)
+        let Rfishh = SKTexture(imageNamed: "redFish.")
+        let rfishh = SKTexture(imageNamed: "redFish")
+        let switchFish = SKAction.setTexture(Rfishh)
+        let switchFishBack = SKAction.setTexture(rfishh)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
+        Rfish.run(moveBackAndForth)
+        self.addChild(Rfish)
+    }
+    
+    func makeOrangeFish() {
+        let Ofish = SKSpriteNode(imageNamed: "orangeFish")
+        Ofish.position = CGPoint(x: 0, y: 125)
+        let movePositive = SKAction.moveBy(x: 250, y: 0, duration: 2)
+        let moveNegative = SKAction.moveBy(x: -250, y: 0, duration: 2)
+        let Ofishh = SKTexture(imageNamed: "orangeFish.")
+        let ofishh = SKTexture(imageNamed: "orangeFish")
+        let switchFish = SKAction.setTexture(Ofishh)
+        let switchFishBack = SKAction.setTexture(ofishh)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
+        Ofish.run(moveBackAndForth)
+        self.addChild(Ofish)
+    }
+    
+    func makeGreFish() {
+        let GREfish = SKSpriteNode(imageNamed: "greFish")
+        GREfish.position = CGPoint(x: 0, y: -250)
+        let movePositive = SKAction.moveBy(x: 250, y: 0, duration: 1)
+        let moveNegative = SKAction.moveBy(x: -250, y: 0, duration: 1)
+        let GREfishh = SKTexture(imageNamed: "greFish.")
+        let grefishh = SKTexture(imageNamed: "greFish")
+        let switchFish = SKAction.setTexture(GREfishh)
+        let switchFishBack = SKAction.setTexture(grefishh)
+        let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
+        GREfish.run(moveBackAndForth)
+        self.addChild(GREfish)
+    }
     func resetGame() {
         makeFishingPole()
         moveFishingPole()
