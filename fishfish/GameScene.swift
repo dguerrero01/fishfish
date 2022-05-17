@@ -25,6 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         resetGame()
         createTitleScreen()
         makeGreenFish()
+        createResetButton()
+        resetFish()
     }
     
     func createBackground() {
@@ -38,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func makeFishingPole() {
         fishingPole = SKSpriteNode(color: .orange, size: CGSize(width: 10, height: frame.height))
         fishingPole.position = CGPoint(x: frame.minX, y: frame.minY + 1750)
+        fishingPole.zPosition = 1
         fishingPole.name = "fishing pole"
         fishingPole.physicsBody = SKPhysicsBody(rectangleOf: fishingPole.size)
         fishingPole.physicsBody?.isDynamic = false
@@ -59,7 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func createTitleScreen() {
         let title = SKSpriteNode(imageNamed: "fishfish.")
         title.position = CGPoint(x: frame.midX, y: frame.midY + 0)
-        title.zPosition = 1
+        title.zPosition = 3
         title.name = "title"
         addChild(title)
     }
@@ -68,6 +71,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let child = self.childNode(withName: "title") as? SKSpriteNode {
             child.removeFromParent()
         }
+    }
+    
+    func createResetButton() {
+        let button = SKSpriteNode(imageNamed: "reset")
+        button.position = CGPoint(x: frame.midX - 215, y: -620)
+        button.size = CGSize(width: button.size.width / 13, height: button.size.height / 13)
+        button.zPosition = 3
+        button.name = "button"
+        addChild(button)
     }
     
     func makeGreenFish() {
@@ -91,6 +103,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         moveFishingPole()
     }
     
+    func resetFish() {
+        //all make and move fish functions
+        //reset score
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -105,6 +122,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         playingGame = true
                         node.alpha = 0
                     }
+                }
+            }
+            for node in nodes(at: location) {
+                if node.name == "button" {
+                    resetFish()
                 }
             }
         }
