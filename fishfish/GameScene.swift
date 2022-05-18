@@ -51,12 +51,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fishingPole.name = "fishing pole"
         fishingPole.physicsBody = SKPhysicsBody(rectangleOf: fishingPole.size)
         fishingPole.physicsBody?.isDynamic = false
+        fishingPole.physicsBody?.friction = 0
+        fishingPole.physicsBody?.linearDamping = 0
+        fishingPole.physicsBody?.contactTestBitMask = (fishingPole.physicsBody?.collisionBitMask)!
         addChild(fishingPole)
     }
     
     func moveFishingPole() {
-        let moveRight = SKAction.moveBy(x: frame.width, y: 0, duration: 2)
-        let moveLeft = SKAction.moveBy(x: -frame.width, y: 0, duration: 2)
+        let moveRight = SKAction.moveTo(x: 250, duration: 2)
+        let moveLeft = SKAction.moveTo(x: -250, duration: 2)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveRight, moveLeft]))
         fishingPole.run(moveBackAndForth)
     }
@@ -64,9 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveFishingPoleUp() {
         let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 2)
         fishingPole.run(moveUp)
-        if fishingPole.position.y == 0 {
-            moveFishingPole()
-        }
+        moveFishingPole()
     }
     
     func createTitleScreen() {
