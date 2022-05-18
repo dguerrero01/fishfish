@@ -65,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func moveFishingPoleUp() {
-        let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 2)
+        let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 1)
         fishingPole.run(moveUp)
         moveFishingPole()
     }
