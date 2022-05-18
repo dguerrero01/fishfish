@@ -17,6 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var spinnyNode : SKShapeNode?
     var playLabel = SKLabelNode()
     var playingGame = false
+    var score = 0
+    var scoreLabel = SKLabelNode()
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -26,7 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createTitleScreen()
         makeFishes()
         createResetButton()
-        resetFish()
+        makeLabel()
+        updateLabel()
     }
     
     func createBackground() {
@@ -57,12 +60,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func moveFishingPoleUp() {
         let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 2)
         fishingPole.run(moveUp)
+        if fishingPole.position.y == 0 {
+            moveFishingPole()
+        }
     }
     
     func createTitleScreen() {
         let title = SKSpriteNode(imageNamed: "fishfish.")
         title.position = CGPoint(x: frame.midX, y: frame.midY + 0)
-        title.zPosition = 3
+        title.zPosition = 5
         title.name = "title"
         addChild(title)
     }
@@ -77,7 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let button = SKSpriteNode(imageNamed: "reset")
         button.position = CGPoint(x: frame.midX - 215, y: -620)
         button.size = CGSize(width: button.size.width / 13, height: button.size.height / 13)
-        button.zPosition = 3
+        button.zPosition = 4
         button.name = "button"
         addChild(button)
     }
@@ -182,12 +188,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func resetFish() {
-        //all make and move fish functions
-        //reset score
+        makeFishes()
+        score = 0
     }
     
     func checkCollisions() {
-        var hitGFish:  [SKSpriteNode] = []
+        let hitGFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "Green Fish") {  node, _ in
             let Gfish = node as! SKSpriteNode
             if Gfish.frame.intersects(self.fishingPole.frame) {
@@ -198,7 +204,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Gfish.removeFromParent()
         }
         
-        var hitBFish:  [SKSpriteNode] = []
+        let hitBFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "Blue Fish") {  node, _ in
             let Bfish = node as! SKSpriteNode
             if Bfish.frame.intersects(self.fishingPole.frame) {
@@ -209,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Bfish.removeFromParent()
         }
         
-        var hitRFish:  [SKSpriteNode] = []
+        let hitRFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "Red Fish") {  node, _ in
             let Rfish = node as! SKSpriteNode
             if Rfish.frame.intersects(self.fishingPole.frame) {
@@ -220,7 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Rfish.removeFromParent()
         }
         
-        var hitOFish:  [SKSpriteNode] = []
+        let hitOFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "Orange Fish") {  node, _ in
             let Ofish = node as! SKSpriteNode
             if Ofish.frame.intersects(self.fishingPole.frame) {
@@ -231,7 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Ofish.removeFromParent()
         }
         
-        var hitGREFish:  [SKSpriteNode] = []
+        let hitGREFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "GRE Fish") {  node, _ in
             let GREfish = node as! SKSpriteNode
             if GREfish.frame.intersects(self.fishingPole.frame) {
@@ -241,6 +247,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for GREfish in hitGREFish {
             GREfish.removeFromParent()
         }
+    }
+    
+    func makeLabel() {
+        scoreLabel.fontSize = 30
+        scoreLabel.fontColor = .black
+        scoreLabel.fontName = "Arial"
+        scoreLabel.position = CGPoint(x: frame.midX + 215, y: -620)
+        scoreLabel.zPosition = 4
+        addChild(scoreLabel)
+    }
+    
+    func updateLabel() {
+        scoreLabel.text = "Score: \(score)"
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -259,12 +278,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         node.alpha = 0
                     }
                 }
-                for node in nodes(at: location) {
-                    if node.name == "button" {
-                        resetFish()
-                    }
-                }
             }
+            for node in nodes(at: location) {
+                                if node.name == "button" {
+                                    resetFish()
+                                }
+                            }
         }
     }
     
