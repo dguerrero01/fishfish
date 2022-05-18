@@ -102,6 +102,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let switchFishBack = SKAction.setTexture(gfishh)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([movePositive, switchFish, moveNegative, moveNegative, switchFishBack, movePositive]))
         Gfish.run(moveBackAndForth)
+        Gfish.physicsBody = SKPhysicsBody(rectangleOf: Gfish.size)
+        Gfish.name = "Green Fish"
+        Gfish.physicsBody?.isDynamic = false
         self.addChild(Gfish)
     }
     
@@ -116,6 +119,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let switchFishBack = SKAction.setTexture(bfishh)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
         Bfish.run(moveBackAndForth)
+        Bfish.physicsBody = SKPhysicsBody(rectangleOf: Bfish.size)
+        Bfish.name = "Blue Fish"
+        Bfish.physicsBody?.isDynamic = false
         self.addChild(Bfish)
     }
     
@@ -130,6 +136,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let switchFishBack = SKAction.setTexture(rfishh)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
         Rfish.run(moveBackAndForth)
+        Rfish.physicsBody = SKPhysicsBody(rectangleOf: Rfish.size)
+        Rfish.name = "Red Fish"
+        Rfish.physicsBody?.isDynamic = false
         self.addChild(Rfish)
     }
     
@@ -144,6 +153,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let switchFishBack = SKAction.setTexture(ofishh)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
         Ofish.run(moveBackAndForth)
+        Ofish.physicsBody = SKPhysicsBody(rectangleOf: Ofish.size)
+        Ofish.name = "Orange Fish"
+        Ofish.physicsBody?.isDynamic = false
         self.addChild(Ofish)
     }
     
@@ -158,8 +170,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let switchFishBack = SKAction.setTexture(grefishh)
         let moveBackAndForth = SKAction.repeatForever(SKAction.sequence([moveNegative, switchFish, movePositive, movePositive, switchFishBack, moveNegative]))
         GREfish.run(moveBackAndForth)
+        GREfish.physicsBody = SKPhysicsBody(rectangleOf: GREfish.size)
+        GREfish.name = "GRE Fish"
+        GREfish.physicsBody?.isDynamic = false
         self.addChild(GREfish)
     }
+    
     func resetGame() {
         makeFishingPole()
         moveFishingPole()
@@ -170,12 +186,70 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //reset score
     }
     
+    func checkCollisions() {
+        var hitGFish:  [SKSpriteNode] = []
+        enumerateChildNodes(withName: "Green Fish") {  node, _ in
+            let Gfish = node as! SKSpriteNode
+            if Gfish.frame.intersects(self.fishingPole.frame) {
+                Gfish.removeFromParent()
+            }
+        }
+        for Gfish in hitGFish {
+            Gfish.removeFromParent()
+        }
+        
+        var hitBFish:  [SKSpriteNode] = []
+        enumerateChildNodes(withName: "Blue Fish") {  node, _ in
+            let Bfish = node as! SKSpriteNode
+            if Bfish.frame.intersects(self.fishingPole.frame) {
+                Bfish.removeFromParent()
+            }
+        }
+        for Bfish in hitBFish {
+            Bfish.removeFromParent()
+        }
+        
+        var hitRFish:  [SKSpriteNode] = []
+        enumerateChildNodes(withName: "Red Fish") {  node, _ in
+            let Rfish = node as! SKSpriteNode
+            if Rfish.frame.intersects(self.fishingPole.frame) {
+                Rfish.removeFromParent()
+            }
+        }
+        for Rfish in hitRFish {
+            Rfish.removeFromParent()
+        }
+        
+        var hitOFish:  [SKSpriteNode] = []
+        enumerateChildNodes(withName: "Orange Fish") {  node, _ in
+            let Ofish = node as! SKSpriteNode
+            if Ofish.frame.intersects(self.fishingPole.frame) {
+                Ofish.removeFromParent()
+            }
+        }
+        for Ofish in hitOFish {
+            Ofish.removeFromParent()
+        }
+        
+        var hitGREFish:  [SKSpriteNode] = []
+        enumerateChildNodes(withName: "GRE Fish") {  node, _ in
+            let GREfish = node as! SKSpriteNode
+            if GREfish.frame.intersects(self.fishingPole.frame) {
+                GREfish.removeFromParent()
+            }
+        }
+        for GREfish in hitGREFish {
+            GREfish.removeFromParent()
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
             if playingGame {
-                fishingPole.position.y = location.y - 450
+                fishingPole.position.y = 0
                 fishingPole.removeAllActions()
+                checkCollisions()
                 moveFishingPoleUp()
             }
             else {
@@ -185,10 +259,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         node.alpha = 0
                     }
                 }
-            }
-            for node in nodes(at: location) {
-                if node.name == "button" {
-                    resetFish()
+                for node in nodes(at: location) {
+                    if node.name == "button" {
+                        resetFish()
+                    }
                 }
             }
         }
@@ -198,7 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             let location = touch.location(in: self)
             if playingGame {
-                fishingPole.position.y = location.y - 450
+                fishingPole.position.y = 0
             }
         }
     }
