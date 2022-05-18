@@ -19,6 +19,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playingGame = false
     var score = 0
     var scoreLabel = SKLabelNode()
+    let Gfish = SKSpriteNode(imageNamed: "Green Fish")
+    let Bfish = SKSpriteNode(imageNamed: "blueFish")
+    let Rfish = SKSpriteNode(imageNamed: "redFish")
+    let Ofish = SKSpriteNode(imageNamed: "orangeFish")
+    let GREfish = SKSpriteNode(imageNamed: "greFish")
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -29,7 +34,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeFishes()
         createResetButton()
         makeLabel()
-        updateLabel()
     }
     
     func createBackground() {
@@ -185,6 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resetGame() {
         makeFishingPole()
         moveFishingPole()
+        updateLabel()
     }
     
     func resetFish() {
@@ -198,6 +203,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let Gfish = node as! SKSpriteNode
             if Gfish.frame.intersects(self.fishingPole.frame) {
                 Gfish.removeFromParent()
+                self.score += 1
             }
         }
         for Gfish in hitGFish {
@@ -209,6 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let Bfish = node as! SKSpriteNode
             if Bfish.frame.intersects(self.fishingPole.frame) {
                 Bfish.removeFromParent()
+                self.score += 1
             }
         }
         for Bfish in hitBFish {
@@ -220,6 +227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let Rfish = node as! SKSpriteNode
             if Rfish.frame.intersects(self.fishingPole.frame) {
                 Rfish.removeFromParent()
+                self.score += 1
             }
         }
         for Rfish in hitRFish {
@@ -231,6 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let Ofish = node as! SKSpriteNode
             if Ofish.frame.intersects(self.fishingPole.frame) {
                 Ofish.removeFromParent()
+                self.score += 1
             }
         }
         for Ofish in hitOFish {
@@ -242,18 +251,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let GREfish = node as! SKSpriteNode
             if GREfish.frame.intersects(self.fishingPole.frame) {
                 GREfish.removeFromParent()
+                self.score += 1
             }
         }
         for GREfish in hitGREFish {
             GREfish.removeFromParent()
         }
+        updateLabel()
     }
     
     func makeLabel() {
         scoreLabel.fontSize = 30
         scoreLabel.fontColor = .black
         scoreLabel.fontName = "Arial"
-        scoreLabel.position = CGPoint(x: frame.midX + 215, y: -620)
+        scoreLabel.position = CGPoint(x: frame.midX + 215, y: -625)
         scoreLabel.zPosition = 4
         addChild(scoreLabel)
     }
@@ -276,6 +287,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if node.name == "title" {
                         playingGame = true
                         node.alpha = 0
+                        updateLabel()
                     }
                 }
             }
