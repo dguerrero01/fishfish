@@ -192,9 +192,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         updateLabel()
     }
     
-    func resetFish() {
-        makeFishes()
+    func removeFishes() {
+        Gfish.removeFromParent()
+        Bfish.removeFromParent()
+        Rfish.removeFromParent()
+        Ofish.removeFromParent()
+        GREfish.removeFromParent()
+    }
+    
+    func resetFishes() {
         score = 0
+        removeFishes()
+        makeFishes()
     }
     
     func checkCollisions() {
@@ -293,7 +302,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             for node in nodes(at: location) {
                                 if node.name == "button" {
-                                    resetFish()
+                                    resetFishes()
+                                    updateLabel()
                                 }
                             }
         }
