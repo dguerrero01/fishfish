@@ -193,11 +193,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func removeFishes() {
-        Gfish.removeFromParent()
-        Bfish.removeFromParent()
-        Rfish.removeFromParent()
-        Ofish.removeFromParent()
-        GREfish.removeFromParent()
+        removeAllChildren()
+        makeFishingPole()
+        moveFishingPole()
+        createBackground()
+        createResetButton()
+        makeLabel()
     }
     
     func resetFishes() {
