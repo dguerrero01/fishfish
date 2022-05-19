@@ -36,6 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeLabel()
     }
     
+    //kassidy
     func createBackground() {
         let background = SKSpriteNode(imageNamed: "fishfish3")
         background.size = frame.size
@@ -44,6 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(background)
     }
     
+    //daisy
     func makeFishingPole() {
         fishingPole = SKSpriteNode(color: .orange, size: CGSize(width: 10, height: frame.height))
         fishingPole.position = CGPoint(x: frame.minX, y: frame.minY + 1750)
@@ -57,6 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(fishingPole)
     }
     
+    //daisy
     func moveFishingPole() {
         let moveRight = SKAction.moveTo(x: 250, duration: 2)
         let moveLeft = SKAction.moveTo(x: -250, duration: 2)
@@ -64,12 +67,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fishingPole.run(moveBackAndForth)
     }
     
+    //daisy + kassidy
     func moveFishingPoleUp() {
         let moveUp = SKAction.moveTo(y: frame.minY + 1750, duration: 1)
         fishingPole.run(moveUp)
         moveFishingPole()
     }
     
+    //briana
     func createTitleScreen() {
         let title = SKSpriteNode(imageNamed: "fishfish.")
         title.position = CGPoint(x: frame.midX, y: frame.midY + 0)
@@ -78,12 +83,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(title)
     }
     
+    //briana
     func removeTitleScreen() {
         if let child = self.childNode(withName: "title") as? SKSpriteNode {
             child.removeFromParent()
         }
     }
     
+    //kassidy
     func createResetButton() {
         let button = SKSpriteNode(imageNamed: "reset")
         button.position = CGPoint(x: frame.midX - 215, y: -620)
@@ -93,6 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(button)
     }
     
+    //briana
     func makeFishes() {
         makeGreenFish()
         makeBlueFish()
@@ -101,6 +109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeGreFish()
     }
     
+    //^briana
     func makeGreenFish() {
         let Gfish = SKSpriteNode(imageNamed: "Green Fish")
         Gfish.position = CGPoint(x: 0, y: 300)
@@ -119,6 +128,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Gfish)
     }
     
+    //^briana
     func makeBlueFish() {
         let Bfish = SKSpriteNode(imageNamed: "blueFish")
         Bfish.position = CGPoint(x: 0, y: -100)
@@ -136,6 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Bfish)
     }
     
+    //^briana
     func makeRedFish() {
         let Rfish = SKSpriteNode(imageNamed: "redFish")
         Rfish.position = CGPoint(x: 0, y: -425)
@@ -153,6 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Rfish)
     }
     
+    //^briana
     func makeOrangeFish() {
         let Ofish = SKSpriteNode(imageNamed: "orangeFish")
         Ofish.position = CGPoint(x: 0, y: 125)
@@ -170,6 +182,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Ofish)
     }
     
+    //^briana
     func makeGreFish() {
         let GREfish = SKSpriteNode(imageNamed: "greFish")
         GREfish.position = CGPoint(x: 0, y: -250)
@@ -193,6 +206,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         updateLabel()
     }
     
+    //kassidy
     func removeFishes() {
         removeAllChildren()
         makeFishingPole()
@@ -202,12 +216,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeLabel()
     }
     
+    //kassidy
     func resetFishes() {
         score = 0
         removeFishes()
-        makeFishes()
+        makeFishes()    
     }
     
+    //daisy
     func checkCollisions() {
         let hitGFish:  [SKSpriteNode] = []
         enumerateChildNodes(withName: "Green Fish") {  node, _ in
@@ -271,6 +287,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         updateLabel()
     }
     
+    //kassidy
     func makeLabel() {
         scoreLabel.fontSize = 30
         scoreLabel.fontColor = .black
@@ -280,6 +297,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(scoreLabel)
     }
     
+    //kassidy
     func updateLabel() {
         scoreLabel.text = "Score: \(score)"
     }
